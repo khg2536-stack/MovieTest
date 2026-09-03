@@ -50,6 +50,11 @@ const Home: React.FC = () => {
                             <td>{movie.price}</td>
                             <td>{movie.releaseYear}</td>
                             <td>{movie.releaseYear}</td>
+                            <td>
+                                <button className='btn btn-danger'>
+                                    <i className="bi bi-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
