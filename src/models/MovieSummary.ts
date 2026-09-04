@@ -1,5 +1,5 @@
 export interface MovieSummary{
-    id : number;
+    id : string;
     name : string;
     genre : string;
     price : number;

@@ -6,6 +6,7 @@ import Jeju from './pages/Jeju.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home.tsx'
 import EditMovie from './pages/EditMovie.tsx'
+import Login from './pages/Login.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='jeju' element={<Jeju/>} />
             <Route path='editMovie' element={<EditMovie/>} />
             <Route path='editMovie/:id' element={<EditMovie/>} />
+            <Route path='login' element={<Login/>} />
           </Route>
         </Routes>
     </BrowserRouter>

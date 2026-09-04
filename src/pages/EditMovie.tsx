@@ -4,7 +4,7 @@ import type { Genre } from "../models/Genre";
 import { useNavigate, useParams } from "react-router-dom";
 import type { MovieDetail } from '../models/MovieDetail'
 import MovieClients from "../clients/MovieClients";
-//import { useNavigate, useParams } from "react-router-dom"
+
 
 //컴포넌트 정의
 const EditMovie : React.FC = () => {

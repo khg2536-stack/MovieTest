@@ -21,6 +21,10 @@ const NavMenu: React.FC = () => {
                             {/* 왜 href를 to로 하는가? */}
                             <NavLink className="nav-link active" aria-current="page" to="/jeju">Jeju</NavLink>
                         </li>
+                         <li className="nav-item">
+                            {/* 왜 href를 to로 하는가? */}
+                            <NavLink className="nav-link active" aria-current="page" to="/login">Login</NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
