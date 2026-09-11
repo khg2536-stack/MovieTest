@@ -17,11 +17,11 @@ const NavMenu: React.FC = () => {
                             {/* 왜 href를 to로 하는가? */}
                             <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item"> */}
                             {/* 왜 href를 to로 하는가? */}
-                            <NavLink className="nav-link active" aria-current="page" to="/jeju">Jeju</NavLink>
-                        </li>
-                         <li className="nav-item">
+                            {/* <NavLink className="nav-link active" aria-current="page" to="/jeju">Jeju</NavLink> */}
+                        {/* </li> */}
+                        <li className="nav-item">
                             {/* 왜 href를 to로 하는가? */}
                             <NavLink className="nav-link active" aria-current="page" to="/login">Login</NavLink>
                         </li>

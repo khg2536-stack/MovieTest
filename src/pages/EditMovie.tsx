@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import GenreClients from "../clients/GenreClients";
-import type { Genre } from "../models/Genre";
 import { useNavigate, useParams } from "react-router-dom";
-import type { MovieDetail } from '../models/MovieDetail'
+
+import GenreClients from "../clients/GenreClients";
 import MovieClients from "../clients/MovieClients";
+
+import type { MovieDetail } from '../models/MovieDetail'
+import type { Genre } from "../models/Genre";
+
 
 
 //컴포넌트 정의
 const EditMovie : React.FC = () => {
 
-    //각종 변수선언
     const navigate = useNavigate()
-    //movie 
     //[args, args] 형태로 선언한는건 무엇이고 어떻게 어디서 작동하는가?
+    //영화수정에서 장르를 갖고와서 장르를 변경시
     const [genre, setGenres] = useState<Genre[]>([])
     const [movie, setMovie] = useState<MovieDetail | null>(null)
+    const {id} = useParams<{ id: string }>()
+    const [title, setTitle] = useState<String>("")
     const genreClients = new GenreClients()
     const movieClients = new MovieClients()
-    const {id} = useParams<{ id: string }>()
-    //const id = params.id
-    const [title, setTitle] = useState<String>('')
 
     //최초 1회 처리
     useEffect(() => {
@@ -29,17 +30,18 @@ const EditMovie : React.FC = () => {
             //아이디가 없으면 초기화
             if(id){
                 setTitle('영화 수정')
+                console.log("EditMovie.tsx 영화수정 화면 진입")
                 const movieData = await movieClients.getMovieAsync(id);
                 setMovie(movieData);
             }else{
                 setTitle('영화 추가')
+                console.log("EditMovie.tsx 영화 추가으로 진입")
             }
-
             try{
                 const genreData = await genreClients.getGenreAsync()
                 setGenres(genreData)
             } catch(error){
-                alert('Genre Error!')
+                alert('Genre Error')
             }
         }
         fetchData()
@@ -48,7 +50,7 @@ const EditMovie : React.FC = () => {
     //저장버튼 클릭시에 처리되는 부분
     const handleSubmit = async(event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(movie)
+        console.log("EditMovie.tsx 저장버튼 클릭")
         if(!movie) return
 
         const movieClients = new MovieClients();
@@ -61,7 +63,7 @@ const EditMovie : React.FC = () => {
         }
         
         if (result.succeeded) {
-            alert("저장")
+            alert("저장되었습니다.")
             navigate("/")
         } else {
             alert("저장실패")
@@ -88,14 +90,14 @@ const EditMovie : React.FC = () => {
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">이름</label>
                             <input type="text" id="name" name="name" 
-                                    value={movie?.name}
+                                    value={movie?.name ?? ""}
                                     onChange={handleInputChange}
                                     className="form-control" required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="genreId" className="form-label">장르</label>
                             <select name="genreId" id="genre"
-                                    value={movie?.genreId}
+                                    value={movie?.genreId ?? ""}
                                     onChange={handleInputChange}
                                     className="form-select" required>
                                     <option value="">장르선택</option>
@@ -107,7 +109,7 @@ const EditMovie : React.FC = () => {
                         <div className="mb-3">
                             <label htmlFor="price" className="form-control">가격</label>
                             <input type="text" id="price" name="price" 
-                                    value={movie?.price}
+                                    value={movie?.price ?? ""}
                                     onChange={handleInputChange}
                                     className="form-control" required/>
                         </div>
@@ -115,7 +117,7 @@ const EditMovie : React.FC = () => {
                             <label htmlFor="releaseYear" className="form-label">출시년도</label>
                             <input type="text" id="releaseYear"
                                     name="releaseYear" 
-                                    value={movie?.releaseYear}
+                                    value={movie?.releaseYear ?? ""}
                                     onChange={handleInputChange}
                                     className="form-control" required/>
                         </div>

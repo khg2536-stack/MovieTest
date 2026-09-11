@@ -8,7 +8,6 @@ const fakeAuth = (username: string, password: string): boolean => {
     return username === "admin" && password === "1234"
 }
 
-
 const Login: React.FC = () => {
 
     const [username, setUsername] = useState<string>("")
@@ -29,7 +28,7 @@ const Login: React.FC = () => {
             sessionStorage.setItem("isLoggedIn", "true")
             sessionStorage.setItem("username", "username")
         }else{
-            alert("MISSMATCH ID OR PW")
+            alert("아이디나 비밀번호 오류")
         }
     }
 
