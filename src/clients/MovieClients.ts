@@ -15,16 +15,16 @@ class MovieClients{
         if(!response.ok){
             throw new Error('조회 불가');
         }
-        const date = await response.json();
+        const data = await response.json();
 
-        return date.map((movie: MovieSummary) => {
+        return data.map((movie: MovieSummary) => {
             const year = movie.releaseYear;
             return {...movie, releaseHae:`${year}년`}
         });
     }
 
     //---------------------------------------------------------------------
-    //영화 수정화면
+    //영화 이름 링크 클릭시에 해당 영화의 정보가 입력되어있는 수정화면
     async getMovieAsync(id:string): Promise<MovieDetail>{
 
         console.log("MovieClients.ts 영화수정 화면 진입")

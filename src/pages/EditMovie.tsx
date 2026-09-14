@@ -30,12 +30,12 @@ const EditMovie : React.FC = () => {
             //아이디가 없으면 초기화
             if(id){
                 setTitle('영화 수정')
-                console.log("EditMovie.tsx 영화수정 화면 진입")
+                console.log("EditMovie.tsx 기존 영화수정 화면 진입")
                 const movieData = await movieClients.getMovieAsync(id);
                 setMovie(movieData);
             }else{
                 setTitle('영화 추가')
-                console.log("EditMovie.tsx 영화 추가으로 진입")
+                console.log("EditMovie.tsx 새 영화추가 화면 진입")
             }
             try{
                 const genreData = await genreClients.getGenreAsync()
@@ -70,7 +70,7 @@ const EditMovie : React.FC = () => {
         }
     }
 
-    //각종 인풋 셀릭트 변경시 처리
+    //각종 인풋/셀릭트 변경시 처리
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement
         | HTMLSelectElement>) => {
             const {name, value} = event.target;
@@ -107,14 +107,14 @@ const EditMovie : React.FC = () => {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="price" className="form-control">가격</label>
+                            <label htmlFor="price" className="form-label">가격</label>
                             <input type="text" id="price" name="price" 
                                     value={movie?.price ?? ""}
                                     onChange={handleInputChange}
-                                    className="form-control" required/>
+                                    className="form-label" required/>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="releaseYear" className="form-label">출시년도</label>
+                            <label htmlFor="releaseYear" className="form-label">개봉년도</label>
                             <input type="text" id="releaseYear"
                                     name="releaseYear" 
                                     value={movie?.releaseYear ?? ""}

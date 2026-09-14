@@ -12,15 +12,28 @@ declare global {
 
 const Home: React.FC = () => {
 
+    //영화 목록 상태를 만든다.
+    // movies는 현재 목록, setMovies는 목록을 바꾸는 함수다.
     const [movies, setMovies] = useState<MovieSummary[]>([])
-    const client = new MovieClients();
     const [movieToDelete, setMoviesToDelete] = useState<MovieSummary | null>(null)
+    const client = new MovieClients();
 
-    //메인화면 렌더링 
+    //첫 화면이 반영된 뒤 조회 함수를 실행한다.
+    useEffect(() => {
+        console.log("A. Home에서 조회 시작")
+        fetchMovies();
+        console.log("B. 조회 요청을 시작했고, 아직 결과는 기다리는 중")
+    }, [])
+
+    //메인화면 렌더링
+    //영화 목록을 조회하는 함수를 정의한다.
+    // async는 이 함수가 비동기 함수라는 뜻이며, 안에서 await를 사용할 수 있다.
     const fetchMovies = async () => {
         try{
+            //서버 조회 결과를 기다렸다가 영화 배열을 받는다.
             const response = await client.getMoviesAsync();
-            console.log("Home.tsx",response);
+            console.log("서버에서 받은 영화 데이터 Home.tsx",response);
+            // 위에서 받은 setMovies 함수로 상태를 변경한다.
             setMovies(response);
         }catch(error){
             console.error("영화 조회 오류:", error);
@@ -60,12 +73,6 @@ const Home: React.FC = () => {
         }
     }
 
-    //최초 화면을 렌더링 해줌
-    useEffect(() => {
-        fetchMovies();
-        console.log("Home.tsx 1회 실행")
-    }, []) // 회면이 로드될때 최초 1회 실행
-
     //영화 삭제시에 모달창 
     useEffect(() => {
         if (!movieToDelete) return
@@ -83,7 +90,6 @@ const Home: React.FC = () => {
         // 닫히기 시작할 때: 모달 내부 포커스 해제
         const handleHide = () => {
             const focusedElement = document.activeElement
-
             if (
                 focusedElement instanceof HTMLElement &&
                 modalElement.contains(focusedElement)
@@ -97,13 +103,10 @@ const Home: React.FC = () => {
             if (opener instanceof HTMLElement && opener.isConnected) {
                 opener.focus()
             }
-
             setMoviesToDelete(null)
         }
-
         modalElement.addEventListener('hide.bs.modal', handleHide)
         modalElement.addEventListener('hidden.bs.modal', handleHidden)
-
         modal.show()
 
         return () => {
@@ -127,12 +130,13 @@ const Home: React.FC = () => {
                         <th>Name</th>
                         <th>Genre</th>
                         <th>가격</th>
-                        <th>출시년도</th>
+                        <th>개봉년도</th>
                         <th>삭제</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {movies.map((movie) =>(
+                    {movies.map((movie) => (
+                        
                         <tr key={movie.id}>
                             <td>
                                 <Link to={`/editMovie/${movie.id}`}>{movie.name}</Link>

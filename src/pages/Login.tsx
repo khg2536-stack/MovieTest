@@ -5,7 +5,7 @@ interface LoginFormEvent extends React.SubmitEvent<HTMLFormElement>{}
 
 //가상로그인
 const fakeAuth = (username: string, password: string): boolean => {
-    return username === "admin" && password === "1234"
+    return username === "oracle" && password === "1234"
 }
 
 const Login: React.FC = () => {
